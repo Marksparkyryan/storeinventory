@@ -35,10 +35,15 @@ Displaying a product by its ID
 Create a function to handle getting and displaying a product by its product_id.
 
 Adding a new product to the database
-Create a function to handle adding a new product to the database. This function should prompt the user to enter the product's name, quantity, and price. The function must process the user provided value for price from a string to an int. Be sure the value you stored for the price field to the database is converted to cents ($2.99 becomes 299, for example).
+Create a function to handle adding a new product to the database. This function 
+should prompt the user to enter the product's name, quantity, and price. The 
+function must process the user provided value for price from a string to an int. 
+Be sure the value you stored for the price field to the database is converted to 
+cents ($2.99 becomes 299, for example).
 
 Backup the database (Export new CSV)
-Create a function to handle making a backup of the database. The backup should be written to a .csv file.
+Create a function to handle making a backup of the database. The backup should 
+be written to a .csv file.
 
 Connect the database and create tables
 In your dunder main method:
