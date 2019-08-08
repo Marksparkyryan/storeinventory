@@ -1,5 +1,6 @@
 Create your application file
-Create a new file in your project directory called app.py. Be sure to import the appropriate Python and Peewee modules at the top of this file.
+Create a new file in your project directory called app.py. Be sure to import 
+the appropriate Python and Peewee modules at the top of this file.
 
 Read in the existing CSV data
 Read the inventory.csv file into your program, and create a list that contains 
@@ -50,4 +51,5 @@ In your dunder main method:
 
 Ensure you are connected to the database you created/initialized
 Ensure you load the CSV products data into the created table
-Run the application so the user can make menu choices and interact with the application.
+Run the application so the user can make menu choices and interact with the 
+application.
