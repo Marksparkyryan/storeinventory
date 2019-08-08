@@ -1,3 +1,4 @@
 #Git Ignore
 *.db
+inventory_backup.csv
 

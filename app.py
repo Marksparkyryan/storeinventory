@@ -1,6 +1,6 @@
 from collections import OrderedDict
 import csv
-from datetime import datetime
+from datetime import datetime as dt
 import os
 from peewee import *
 import re
@@ -18,7 +18,7 @@ class Product(Model):
                              unique=True)
     product_price = IntegerField(null=False, verbose_name="product price")
     product_quantity = IntegerField(verbose_name="product quantity")
-    date_updated = DateField(default=datetime.now())
+    date_updated = DateField(default=dt.now())
 
     class Meta:
         database = db
@@ -154,7 +154,7 @@ def dict_cleaner(product_name, product_price, product_quantity, date_updated):
         product_quantity = int(product_quantity)
         price = re.findall(r"\d", product_price)
         product_price = int("".join(price))
-        date_updated = datetime.strptime(date_updated, "%m/%d/%Y").date()
+        date_updated = dt.strptime(date_updated, "%m/%d/%Y").date()
 
         dict_packer(product_name=product_name,
                     product_price=product_price,
