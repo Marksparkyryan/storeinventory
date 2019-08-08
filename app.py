@@ -3,6 +3,7 @@ import csv
 from datetime import datetime as dt
 import os
 from peewee import *
+from prettytable import PrettyTable
 import re
 import time
 
@@ -34,12 +35,13 @@ def detail_view():
         query = Product.select().where(Product.product_id == id).get()
         price = query.product_price / 100
         date = query.date_updated.strftime("%B %-d, %Y")
-        print(f"""
-        Product Name: {query.product_name}
-        Price: ${price}
-        Quantity: {query.product_quantity}
-        Date Updated: {date}
-        """)
+        table = PrettyTable(["Product ID", f"{query.product_id}"])
+        table.add_row(["Product Name", query.product_name])
+        table.add_row(["Product Price", "$%0.2f" % price])
+        table.add_row(["Product Quantity", query.product_quantity])
+        table.add_row(["Date Updated", date])
+        print("")
+        print(table)
     except DoesNotExist:
         print(f"\nProduct with id={id} does not exist.")
     except ValueError:
@@ -82,11 +84,18 @@ def list_view():
     query = Product.select().order_by(Product.product_name)
     print("Store Inventory - Product List")
     print("------------------------------")
+    table = PrettyTable(["ID", "Name", "Price", "Quantity", "Date Updated"])
     for prod in query:
-        print(prod.product_name,
-              prod.product_price,
-              prod.product_quantity,
-              prod.date_updated)
+        price = float(prod.product_price) / float(100)
+        price = "$%0.2f" % price
+        date = prod.date_updated.strftime("%B %-d, %Y")
+        table.add_row([prod.product_id,
+                       prod.product_name,
+                       price,
+                       prod.product_quantity,
+                       date])
+    print("")
+    print(table)
 
 
 def make_backup():
@@ -124,7 +133,7 @@ MENU = OrderedDict([
 
 def menu_loop():
     choice = None
-    while choice != "q":
+    while True:
         os.system("cls" if os.system.__name__ == "nt" else "clear")
         print("Store Inventory - Main Menu")
         print("---------------------------")
@@ -132,11 +141,16 @@ def menu_loop():
         for key, value in MENU.items():
             print(f"{key} to {value.__doc__}")
         choice = input("> ").lower().strip()
-
+        if choice == "q":
+            os.system("cls" if os.system.__name__ == "nt" else "clear")
+            print("Goodbye!")
+            print("")
+            quit()
         if choice in MENU:
             MENU[choice]()
-            print("")
-            input("Press enter to continue ")
+            input("\nPress enter to continue ")
+        else:
+            input("\nThat's not a choice! Press enter to try again")
 
 
 def csv_reader():
