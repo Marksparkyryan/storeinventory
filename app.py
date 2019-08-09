@@ -5,7 +5,6 @@ import os
 from peewee import *
 from prettytable import PrettyTable
 import re
-import time
 
 
 db = SqliteDatabase("inventory.db")
@@ -154,6 +153,8 @@ def menu_loop():
 
 
 def csv_reader():
+    """Open csv file, read it, then push it as a dictionary to a cleaner 
+    function"""
     with open("inventory.csv", newline="") as csvfile:
         csv_reader = csv.DictReader(csvfile)
         os.system("cls" if os.system.__name__ == "nt" else "clear")
@@ -164,6 +165,8 @@ def csv_reader():
 
 
 def dict_cleaner(product_name, product_price, product_quantity, date_updated):
+    """Take in dictionary version of each row in csv file and 
+    clean data."""
     try:
         product_quantity = int(product_quantity)
         price = re.findall(r"\d", product_price)
@@ -175,15 +178,19 @@ def dict_cleaner(product_name, product_price, product_quantity, date_updated):
                     product_quantity=product_quantity,
                     date_updated=date_updated)
     except ValueError:
-        print(
-            f"""Error: product "{product_name}" rejected due to invalid data type""")
+        print(f"""Error: product "{product_name}" rejected"""
+              """ due to invalid data type""")
 
 
 def dict_packer(**kwargs):
+    """Take in cleaned row from cleaner function and re-pack as 
+    dictionary and append to product list"""
     PRODUCT_LIST.append(kwargs)
 
 
 def csv_to_product_model(PRODUCT_LIST):
+    """Add each dictionary row in product list and push into object 
+    model Product"""
     successful = 0
     exists = 0
     for product in PRODUCT_LIST:
