@@ -72,7 +72,7 @@ def add_product():
         if created:
             print("Success: product added to database.")
     except ValueError:
-        print("Error: One or more fields were incorrect data type.")
+        print("Error: One or more fields were empty/incorrect data type.")
     except IntegrityError:
         print(f"""Error: Product "{product.product_name}" already exists.""")
 
