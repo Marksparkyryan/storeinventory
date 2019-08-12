@@ -1,4 +1,8 @@
 #Git Ignore
 *.db
 inventory_backup.csv
+test.py
+.coverage
+htmlcov/
+__pycache__/
 
