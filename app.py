@@ -62,19 +62,17 @@ def add_product():
     try:
         context["product_price"] = int(
             re.sub(r"[^\d]", "", context["product_price"]))
-        product, created = Product.get_or_create(
+        Product.create(
             product_name=context["product_name"],
             product_price=context["product_price"],
             product_quantity=context["product_quantity"]
         )
-        if not created:
-            raise IntegrityError
-        if created:
-            print("Success: product added to database.")
+        print("Success: product added to database.")
     except ValueError:
         print("Error: One or more fields were empty/incorrect data type.")
     except IntegrityError:
-        print(f"""Error: Product "{product.product_name}" already exists.""")
+        print(
+            f"""Error: Product "{context["product_name"]}" already exists.""")
 
 
 def list_view():
