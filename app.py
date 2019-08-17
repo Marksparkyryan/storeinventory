@@ -72,7 +72,8 @@ def add_product():
         print("Error: One or more fields were empty/incorrect data type.")
     except IntegrityError:
         print(
-            f"""Error: Product "{context["product_name"]}" already exists.""")
+            f"""Error: Product "{context["product_name"]}" already exists."""
+        )
 
 
 def list_view():
