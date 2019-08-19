@@ -65,7 +65,8 @@ def add_product():
         query = Product.select().where(
             Product.product_name == context["product_name"]).get()
         response = input(
-            f"""Product "{context["product_name"]}" already exists. Update with this price and quantity data? y/n """).lower().strip()
+            f"""Product "{context["product_name"]}" already exists. Update"""
+            """ with this price and quantity data? y/n """).lower().strip()
         if response == "y":
             Product.update(
                 product_price=context["product_price"],
@@ -74,17 +75,20 @@ def add_product():
                 Product.product_name == context["product_name"]
             ).execute()
             print(
-                f"""Success: Product "{context["product_name"]}" has been updated.""")
+                f"""Success: Product "{context["product_name"]}" has been"""
+                """ updated.""")
         else:
             print(
-                f"""Product "{context["product_name"]}" has not been updated.""")
+                f"""Product "{context["product_name"]}" has not been """
+                """updated.""")
     except Product.DoesNotExist:
         new_product = Product.create(
             product_name=context["product_name"],
             product_price=context["product_price"],
             product_quantity=context["product_quantity"])
         print(
-            f"""Success: Product "{context["product_name"]}" has been created.""")
+            f"""Success: Product "{context["product_name"]}" has been """
+            """created.""")
     except ValueError:
         print("Error: One or more fields were empty/incorrect data type.")
 
@@ -131,7 +135,8 @@ def make_backup():
             })
             backed_up += 1
         print(
-            f"\nSuccess: {backed_up} products backed up to inventory_backup.csv")
+            f"\nSuccess: {backed_up} products backed up to"
+            " inventory_backup.csv")
 
 
 MENU = OrderedDict([
