@@ -1,8 +1,8 @@
 # storeinventory
 
 StoreInventory is a simple product storage app. Products can be bulk loaded into a database via a csv file. Users can enter 
-chacarteristics of a product (name, price, quantity) and then store the product in a database. Users can retrieve single 
-products or a list of all products from the database. Users can also back up the database to a backup_csv.csv file.
+chacarteristics of a product (name, price, quantity) and then store the product in a database. If the product already exists in the database, users are given the option to update the product details. Users can retrieve single products or a list of 
+all products from the database. Users can also back up the database to a backup_csv.csv file.
 
 <br/>
 
