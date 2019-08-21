@@ -62,33 +62,33 @@ def add_product():
     try:
         context["product_price"] = int(
             re.sub(r"[^\d]", "", context["product_price"]))
-        query = Product.select().where(
-            Product.product_name == context["product_name"]).get()
+        existing_product = Product.get(
+            Product.product_name == context["product_name"])
         response = input(
             f"""Product "{context["product_name"]}" already exists. Update"""
             """ with this price and quantity data? y/n """).lower().strip()
         if response == "y":
-            Product.update(
-                product_price=context["product_price"],
-                product_quantity=context["product_quantity"]
-            ).where(
-                Product.product_name == context["product_name"]
-            ).execute()
+            existing_product.product_price = context["product_price"]
+            existing_product.product_quantity = context["product_quantity"]
+            existing_product.save()
             print(
-                f"""Success: Product "{context["product_name"]}" has been"""
-                """ updated.""")
+                f"""Success: Product "{existing_product.product_name}" has"""
+                """ been updated.""")
         else:
             print(
                 f"""Product "{context["product_name"]}" has not been """
                 """updated.""")
     except Product.DoesNotExist:
-        new_product = Product.create(
-            product_name=context["product_name"],
-            product_price=context["product_price"],
-            product_quantity=context["product_quantity"])
-        print(
-            f"""Success: Product "{context["product_name"]}" has been """
-            """created.""")
+        try:
+            new_product = Product.create(
+                product_name=context["product_name"],
+                product_price=context["product_price"],
+                product_quantity=context["product_quantity"])
+            print(
+                f"""Success: Product "{context["product_name"]}" has been """
+                """created.""")
+        except ValueError:
+            print("Error: One or more fields were empty/incorrect data type.")
     except ValueError:
         print("Error: One or more fields were empty/incorrect data type.")
 
